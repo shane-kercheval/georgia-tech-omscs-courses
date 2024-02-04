@@ -1,16 +1,7 @@
-"""
-Scrapes all of the course and specialization information from the OMSCS website, gives
-it to ChatGPT (along with a resume) and asks it to recommend various options based on past
-experience, interests, and gaps in knowledge.
-"""
-
-import time
-import requests
+"""Contains functions to scrape the OMSCS website for course and specialization information."""
 import aiohttp
-import asyncio
-import click
+import requests
 from bs4 import BeautifulSoup
-import yaml
 
 
 OMSCS_CURRENT_COURSES_URL = 'https://omscs.gatech.edu/current-courses'
@@ -108,7 +99,6 @@ def get_specialization_info(url: str) -> tuple[str, str]:  # noqa: PLR0912
             else:
                 core_courses_text += next_sibling.string.strip() + '\n'
             next_sibling = next_sibling.find_next_sibling()
-        print(f"`{core_courses_text}`")
 
     # scrape elective courses for the specialization
     electives_heading = soup.find('h3', string=lambda x: 'Electives' in x)
@@ -132,60 +122,23 @@ def get_specialization_info(url: str) -> tuple[str, str]:  # noqa: PLR0912
 
     return core_courses_text.strip(), elective_courses_text.strip()
 
-def run_async_tasks(tasks: list[asyncio.Task]) -> list[object]:
-    """Runs the given async tasks and returns the results."""
-    loop = asyncio.get_event_loop()
-    if loop.is_running():
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-    return loop.run_until_complete(asyncio.gather(*tasks))
+def format_specializations(info: dict) -> str:
+    """Format the specializations information into a human-readable string (passed to ChatGPT)."""
+    formatted_str = ""
+    for specialization, courses in info.items():
+        formatted_str += f"SPECIALIZATION: {specialization}\n\n"
+        formatted_str += "CORE/REQUIRED COURSES:\n"
+        formatted_str += f"{courses['core_courses']}\n\n"
+        formatted_str += "ELECTIVES:\n"
+        formatted_str += f"{courses['elective_courses']}\n\n\n\n"
+    return formatted_str.strip()
 
-@click.group()
-def main() -> None:
-    """Runs the program."""
-    pass
-
-@main.command()
-def scrape_omscs_courses() -> None:
-    """Scrape the current courses, course overview, and suggested background from OMSCS website."""
-    start = time.time()
-    print("Scraping OMSCS course list...")
-    courses = get_omscs_current_courses()
-    tasks = [get_course_overview(info['url']) for _, info in courses.items()]
-    print("Scraping course overviews and suggested background...")
-    results = run_async_tasks(tasks)
-
-    for (name, _), result in zip(courses.items(), results):
-        overview, suggested_background = result
-        courses[name]['overview'] = overview
-        courses[name]['suggested_background'] = suggested_background
-
-    print("Saving course data to file...")
-    with open('scraped/omscs_courses.yaml', 'w') as file:
-        file.write(yaml.dump(courses))
-
-    finish = time.time()
-    print(f"Scraping completed in {finish - start:.2f} seconds.")
-
-@main.command()
-def scrape_omscs_specializations() -> None:
-    """Scrape the specialization core and elective courses from OMSCS website."""
-    start = time.time()
-    print("Scraping OMSCS specialization li,st...")
-    specializations = {}
-    for name, info in OMSCS_SPECIALIZATIONS.items():
-        core, elective = get_specialization_info(info['url'])
-        specializations[name] = {
-            'core_courses': core,
-            'elective_courses': elective
-        }
-
-    print("Saving specialization data to file...")
-    with open('scraped/omscs_specializations.yaml', 'w') as file:
-        file.write(yaml.dump(specializations))
-
-    finish = time.time()
-    print(f"Scraping completed in {finish - start:.2f} seconds.")
-    
-if __name__ == "__main__":
-    main()
+def format_courses(info: dict) -> str:
+    """Format the courses information into a human-readable string (passed to ChatGPT)."""
+    formatted_str = ""
+    for course, details in info.items():
+        formatted_str += f"COURSE: {course}\n"
+        # formatted_str += f"URL: {details['url']}\n"
+        formatted_str += f"OVERVIEW:\n{details['overview']}\n"
+        formatted_str += f"SUGGESTED BACKGROUND:\n{details['suggested_background']}\n\n\n"
+    return formatted_str.strip()

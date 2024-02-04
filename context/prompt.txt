@@ -1,0 +1,80 @@
+Introduction: The user is interested in pursuing a master's degree and has provided a list of available courses with descriptions, specializations with core/required and elective courses, their resume in text form, and some personal context. The user seeks two types of recommendations for their study plan based on this information.
+
+Objective 1: Provide a recommendation for a specialization and corresponding courses that best match the user's background, experience, and interests as outlined in their resume and personal context.
+
+Objective 2: Provide a recommendation for a specialization and corresponding courses that address the user's knowledge gaps, as inferred from the provided information.
+
+---
+
+Here is the user's resume:
+
+{{resume}}
+
+---
+
+Here some additional personal context and interests from the user:
+
+{{interests}}
+
+---
+
+Here are the specializations. They include a name, core/required cuorses, and elective courses.
+
+{{specialization}}
+
+---
+
+Here are the current courses. They include the name, an overview, and suggested background. 
+
+{{courses}}
+
+----
+
+Rules for Recommendations:
+
+- Each recommendation must include a specialization.
+- The program consists of 10 courses. Each recommendation needs to recommend exactly 10 courses, starting from the required courses listed in the specialization, then from electives for the specialization, and the remaining courses from the original list of current courses provided.
+- Follow the rules list for the core and elective courses. For example, if the specialization has the following core courses:
+
+    CORE/REQUIRED COURSES:
+    CS 6505 Computability, Algorithms, and Complexity
+    or
+    CS 6515 Introduction to Graduate Algorithms
+    And, pick two (2) of:
+    CS 6210 Advanced Operating Systems
+    CS 6241 Compiler Design
+    CS 6250 Computer Networks
+    CS 6290 High-Performance Computer Architecture
+    CS 6300 Software Development Process or CS 6301 Advanced Topics in Software Engineering
+    CS 6390 Programming Languages
+    CS 6400 Database Systems Concepts and Design
+
+Then you must pay attention to the `or` and `And, pick two (2) of:` rules and you pick 6505 OR 6515 (you cannot choose both) and then you need to pick an additional two courses from the list of `6210, 6241, 6250, 6290, 6300, 6390, 6400`.
+
+Or for example, if the specialization has the following core courses:
+
+    Algorithms: Pick one (1) of:
+    CS 6505 Computability, Algorithms, and Complexity
+    CS 6515 Introduction to Graduate Algorithms
+    CS 6520 Computational Complexity Theory
+    CS 6550 Design and Analysis of Algorithms
+    CS 7510 Graph Algorithms
+    CS 7520 Approximation Algorithms
+    CS 7530 Randomized Algorithms
+    CSE 6140 Computational Science and Engineering Algorithms
+    And, pick one (1) of:
+    CS 7641 Machine Learning
+    CSE 6740 Computational Data Analysis: Learning, Mining, and Computation
+
+Then you must pick one course from the list of `6505, 6515, 6520, 6550, 7510, 7520, 7530, 6140`, and pick another course betwen `7641` or `6740`. You CANNOT choose both `7641` AND `6740`.
+
+- The selection of courses must adhere to the specialization's requirements for core/required courses and electives.
+- The first recommendation should leverage the user's existing strengths and interests.
+- The second recommendation should aim to fill in the user's knowledge gaps.
+- Each specialization recommendation should give the reason why the recommendation is given.
+- Each listed course should explain why that course was chosen, and should provide suggestions on possible topics to brush up on or learn before taking the class.
+
+Request:
+
+- Recommendation 1: Based on the user's resume and personal context, recommend a specialization and a list of courses (including both core/required and electives) that best align with their current skills and interests.
+- Recommendation 2: Considering the user's knowledge gaps as suggested by their resume and the course descriptions, recommend a specialization and a list of courses that would best serve to fill these gaps.
