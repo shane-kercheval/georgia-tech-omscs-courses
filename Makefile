@@ -78,3 +78,8 @@ scape_omscs_specializations:
 	python source/cli.py scrape-omscs-specializations
 
 scrape: scape_omscs_courses scape_omscs_specializations
+
+recommendation:
+	python source/cli.py recommend
+
+all: scrape recommendation

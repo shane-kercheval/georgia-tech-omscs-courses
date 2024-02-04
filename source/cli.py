@@ -8,12 +8,17 @@ import time
 import asyncio
 import click
 import yaml
+from llm_workflow.openai import OpenAIChat
 from source.omscs import (
     OMSCS_SPECIALIZATIONS,
+    format_courses,
+    format_specializations,
     get_course_overview,
     get_omscs_current_courses,
     get_specialization_info,
 )
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def run_async_tasks(tasks: list[asyncio.Task]) -> list[object]:
@@ -71,8 +76,42 @@ def scrape_omscs_specializations() -> None:
     finish = time.time()
     print(f"Scraping completed in {finish - start:.2f} seconds.")
 
-# @main.command()
-# def format_into_
+@main.command()
+def recommend() -> None:
+    """Recommend courses and specializations based on user input."""
+    with open('scraped/omscs_courses.yaml') as f:
+        courses = yaml.safe_load(f)
+    with open('scraped/omscs_specializations.yaml') as f:
+        specializations = yaml.safe_load(f)
+    with open('context/resume.txt') as f:
+        resume = f.read()
+    with open('context/interests.txt') as f:
+        interests = f.read()
+    with open('context/prompt.txt') as f:
+        prompt = f.read()
+
+    prompt = prompt.\
+        replace('{{resume}}', resume).\
+        replace('{{interests}}', interests).\
+        replace('{{specialization}}', format_specializations(specializations)).\
+        replace('{{courses}}', format_courses(courses))
+
+    chat = OpenAIChat(
+        model_name='gpt-4-0125-preview',
+        streaming_callback=lambda x: print(x.response, end='', flush=True),
+    )
+    print("Generating recommendations based on your resume and interests...")
+    response = chat(prompt)
+    print("\n\n---\n\n")
+    print(f"Total Cost:            ${chat.cost:.5f}")
+    print(f"Total Tokens:          {chat.total_tokens:,}")
+    print(f"Total Prompt Tokens:   {chat.input_tokens:,}")
+    print(f"Total Response Tokens: {chat.response_tokens:,}")
+    rec_file = 'context/recommendations.txt'
+    print(f"Saving recommendations to file: {rec_file}")
+    with open(rec_file, 'w') as f:
+        f.write(response)
+
 
 if __name__ == "__main__":
     main()
