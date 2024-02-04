@@ -7,7 +7,7 @@ This project scrapes all of the course and specialization information from the O
 - download and install [Docker](https://www.docker.com/)
 - clone repo (`git clone https://github.com/shane-kercheval/georgia-tech-omscs-courses.git`)
 - navigate to repo (`cd georgia-tech-omscs-courses/`)
-- create `.env` file in project directory with `OPENAI_API_TOKEN=<your OpenAI API Key>`
+- create `.env` file in project directory with `OPENAI_API_KEY=<your OpenAI API Key>`
 - Replace content in `context/resume.txt` with your information.
 - Replace content in `context/interests.txt` with your information.
 - run `make docker_run` to start docker container
