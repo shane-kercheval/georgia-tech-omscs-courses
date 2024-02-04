@@ -8,7 +8,7 @@ import time
 import asyncio
 import click
 import yaml
-from llm_workflow.openai import OpenAIChat
+from llm_workflow.openai import OpenAIChat, OpenAIServerChat
 from source.omscs import (
     OMSCS_SPECIALIZATIONS,
     format_courses,
@@ -77,7 +77,8 @@ def scrape_omscs_specializations() -> None:
     print(f"Scraping completed in {finish - start:.2f} seconds.")
 
 @main.command()
-def recommend() -> None:
+@click.option('--use-local-server', is_flag=True, help="Use the local OpenAI server.")
+def recommend(use_local_server: bool = False) -> None:
     """Recommend courses and specializations based on user input."""
     with open('scraped/omscs_courses.yaml') as f:
         courses = yaml.safe_load(f)
@@ -89,6 +90,8 @@ def recommend() -> None:
         interests = f.read()
     with open('context/prompt.txt') as f:
         prompt = f.read()
+    with open('context/system_message.txt') as f:
+        system_message = f.read().strip()
 
     prompt = prompt.\
         replace('{{resume}}', resume).\
@@ -96,10 +99,19 @@ def recommend() -> None:
         replace('{{specialization}}', format_specializations(specializations)).\
         replace('{{courses}}', format_courses(courses))
 
-    chat = OpenAIChat(
-        model_name='gpt-4-0125-preview',
-        streaming_callback=lambda x: print(x.response, end='', flush=True),
-    )
+    if use_local_server:
+        chat = OpenAIServerChat(
+            base_url='http://host.docker.internal:1234/v1',
+            system_message=system_message,
+            streaming_callback=lambda x: print(x.response, end='', flush=True),
+            timeout=500,
+        )
+    else:
+        chat = OpenAIChat(
+            model_name='gpt-4-0125-preview',
+            system_message=system_message,
+            streaming_callback=lambda x: print(x.response, end='', flush=True),
+        )
     print("Generating recommendations based on your resume and interests...")
     response = chat(prompt)
     print("\n\n---\n\n")

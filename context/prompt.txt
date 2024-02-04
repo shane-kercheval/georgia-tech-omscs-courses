@@ -1,8 +1,8 @@
-Introduction: The user is interested in pursuing a master's degree and has provided a list of available courses with descriptions, specializations with core/required and elective courses, their resume in text form, and some personal context. The user seeks two types of recommendations for their study plan based on this information.
+Introduction: The user is interested in pursuing a master's degree and has provided a list of available courses with descriptions, specializations with core/required and elective courses, their resume in text form, and some personal context. The user is interested in selecting a single specialization. The user seeks two types of recommendations for their study plan based on this information.
 
-Objective 1: Provide a recommendation for a specialization and corresponding courses that best match the user's background, experience, and interests as outlined in their resume and personal context.
+Objective 1: Provide a recommendation for a specialization and corresponding courses that would best match the user's background, experience, and interests as outlined in their resume and personal context.
 
-Objective 2: Provide a recommendation for a specialization and corresponding courses that address the user's knowledge gaps, as inferred from the provided information.
+Objective 2: Provide a recommendation for a specialization and corresponding courses that would address the user's knowledge gaps, as inferred from the provided information.
 
 ---
 
@@ -32,8 +32,8 @@ Here are the current courses. They include the name, an overview, and suggested 
 
 Rules for Recommendations:
 
-- Each recommendation must include a specialization.
-- The program consists of 10 courses. Each recommendation needs to recommend exactly 10 courses, starting from the required courses listed in the specialization, then from electives for the specialization, and the remaining courses from the original list of current courses provided.
+- Each recommendation must include a specialization and must follow the course rules for that specialization.
+- The program consists of a single specialization with 10 courses. Each recommendation needs to recommend exactly 10 courses, starting from the core/required courses listed in the specialization, then from electives for the specialization, and the remaining courses from the original list of current courses provided.
 - Follow the rules list for the core and elective courses. For example, if the specialization has the following core courses:
 
     CORE/REQUIRED COURSES:

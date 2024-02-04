@@ -7,15 +7,30 @@ This project scrapes all of the course and specialization information from the O
 - download and install [Docker](https://www.docker.com/)
 - clone repo (`git clone https://github.com/shane-kercheval/georgia-tech-omscs-courses.git`)
 - navigate to repo (`cd georgia-tech-omscs-courses/`)
-- create `.env` file in project directory with `OPENAI_API_KEY=<your OpenAI API Key>`
 - Replace content in `context/resume.txt` with your information.
 - Replace content in `context/interests.txt` with your information.
+
+
+Running w/ ChatGPT:
+
+- create `.env` file in project directory with `OPENAI_API_KEY=<your OpenAI API Key>`
 - run `make docker_run` to start docker container
 - once, container is started, in another window run `make docker_recommend` (costs about $0.25)
 
+Running w/ LM Studio & GGUF model:
+
+(this option may not be feasible depending on your hardware/gpu)
+
+- download LM Studio
+- download GGUF model (e.g. Mistral Instruct v0.2 7B)
+- start local server in LM Studio (I selected `Use Appple Meta (GPU)` set to `Context Lenght to the max which is `32768` for Mistral Instruct v0.2 7B)
+- run `make docker_run` to start docker container
+- once, container is started, in another window run `make docker_recommend_local`
+
+
 Note that I did not include the `Computational Perception and Robotics` specialization. Uncomment relevant line 10 in omscs.py to include it.
 
-# Output
+# Output (ChatGPT)
 
 I asked ChatGPT to provide two recommendations on specializations/courses: one that best aligned best with my background and interests, and another that concentrates on address gaps in my knowledge/experience.
 

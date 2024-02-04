@@ -30,7 +30,15 @@ scrape: scape_omscs_courses scape_omscs_specializations
 recommendation:
 	python source/cli.py recommend
 
+recommendation_local:
+	python source/cli.py recommend --use-local-server
+
 all: scrape recommendation
+
+all_local: scrape recommendation_local
 
 docker_recommend:
 	docker compose run --no-deps --entrypoint "make all" bash
+
+docker_recommend_local:
+	docker compose run --no-deps --entrypoint "make all_local" bash
