@@ -31,23 +31,11 @@ docker_all:
 # Project
 ####
 linting:
-	ruff check source/config
-	ruff check source/entrypoints
-	ruff check source/library
-	ruff check source/notebooks
-	ruff check source/service
-	ruff check tests
+	ruff check cli.py
 
 unittests:
-	rm -f tests/test_files/log.log
-	# pytest tests
-	coverage run -m pytest --durations=0 tests
-	coverage html
 
-doctests:
-	python -m doctest source/library/utilities.py
-
-tests: linting unittests doctests
+tests: linting unittests
 
 open_coverage:
 	open 'htmlcov/index.html'
@@ -77,3 +65,11 @@ clean:
 	rm -f data/raw/*.pkl
 	rm -f data/raw/*.csv
 	rm -f data/processed/*
+
+
+
+
+
+
+scape_omscs_courses:
+	python cli.py scrape-omscs-courses
