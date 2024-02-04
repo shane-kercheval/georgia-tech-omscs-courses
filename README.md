@@ -10,7 +10,6 @@ This project scrapes all of the course and specialization information from the O
 - Replace content in `context/resume.txt` with your information.
 - Replace content in `context/interests.txt` with your information.
 
-
 Running w/ ChatGPT:
 
 - create `.env` file in project directory with `OPENAI_API_KEY=<your OpenAI API Key>`
@@ -26,7 +25,6 @@ Running w/ LM Studio & GGUF model:
 - start local server in LM Studio (I selected `Use Appple Meta (GPU)` set to `Context Lenght to the max which is `32768` for Mistral Instruct v0.2 7B)
 - run `make docker_run` to start docker container
 - once, container is started, in another window run `make docker_recommend_local`
-
 
 Note that I did not include the `Computational Perception and Robotics` specialization. Uncomment relevant line 10 in omscs.py to include it.
 
