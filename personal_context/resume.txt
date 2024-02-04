@@ -1,0 +1,48 @@
+Title
+====
+Senior Data Scientist and ML Engineer
+
+Overview
+====
+Data science and ML leader with 15+ years of experience spanning data science, machine learning, software development, and product/project management. Demonstrated ability to leverage data and statistical analysis to find growth opportunities and solve complex business problems, notably in the areas of marketing, growth, sales, product, finance, and customer service.
+
+Experience
+====
+
+Senior Data Scientist / ML Engineer - Anaconda
+2022 – present
+- Part of Anaconda’s “AI Augmentation” team, researching and developing advanced AI products and tools, including the application of large language models (LLMs).
+- Developed an LLM evaluation framework that compares and tracks the quality of responses across various LLM models, using metrics such as the percentage of successfully executed code blocks, costs, time to execute, etc.
+- Interim Product Manager for the Anaconda Assistant, an AI-powered chat application enabled in Anaconda cloud notebooks. Collaborated across teams to help take the Assistant from MVP stage to a successful launch; implemented telemetry data models via dbt/SQL and product dashboard via Superset.
+- Developed a search and recommendation system for Python packages using collaborative filtering and semantic search. Identified relevant (end-user) packages through network analysis using python package dependencies.
+
+Staff Data Scientist - Okta/Auth0 (Auth0 acquired by Okta in 2021)
+2016 – 2022
+- Implemented and deployed sales forecasting models using Bayesian Machine Learning and Monte Carlo simulations, improving the accuracy of end-of-quarter revenue predictions by 10-20%.
+- Implemented and deployed a machine learning classification model that matched Salesforce accounts with external records such as Fortune 500 and Global 2000 (G2K). The model was also employed for Salesforce account deduplication. The outcome for the FP&A team was a notable cut in quarterly costs of third-party services, enhanced accuracy, and improved automation and transparency.
+- Worked with growth, marketing, and product teams to design, implement, and track A/B experiments. Implemented A/B testing web applications (via R/Shiny) used to analyze results; implemented corresponding data pipeline.
+- Conducted causal analysis to determine effectiveness of new sales initiative (via diff-in-diff, synthetical controls).
+- Provided many ad-hoc exploratory/statistical analyses across the organization (e.g. marketing, sales, product, customer success) via Python, R, SQL.
+- Implemented data models using SQL (Redshift/Snowflake), R, Python, and Airflow. Refactored business logic from Tableau into the data warehouse and incorporated data-quality tests for improved data management.
+- Exhibited technical leadership by adopting software development best practices for data science and machine learning applications, including coding standards, code reviews, software design patterns, and unit testing.
+- Formally recognized on multiple occasions for dedication, work-ethic / quality of work, and values.
+
+Analyst / Project Manager - IntelliTect
+2013 - 2016
+- Worked on a wide variety of projects, including business/strategic analysis, financial forecasting, marketing, and project management.
+
+Software Engineer - Itron
+2008 - 2013
+- Lead software developer; worked with customer success and marketing to create feature roadmaps; worked with the Quality Assurance team and hardware engineers to develop test/integration plans.
+- Worked onsite at customer locations to successfully troubleshoot, resolve problems, and provide support.
+
+Education
+====
+
+MS Master’s in Business Administration, Eastern Washington University
+2011 - 2013
+Concentration in Finance; GPA 3.99
+
+BS Computer Science, Eastern Washington University
+2004 - 2008
+Minored in Mathematics and Physics; Summa Cum Laude, GPA 3.89

@@ -78,7 +78,7 @@ async def get_course_overview(url: str) -> tuple[str, str]:
 
     return overview_text, suggested_background_text
 
-def get_specialization_info(url: str) -> tuple[str, str]:
+def get_specialization_info(url: str) -> tuple[str, str]:  # noqa: PLR0912
     """
     Retrieves the specialization core and elective courses from the OMSCS website and returns
     each as a string in a tuple.
@@ -93,6 +93,8 @@ def get_specialization_info(url: str) -> tuple[str, str]:
     assert response.status_code == 200, \
         f"Failed to retrieve page `{url}`. Status: {response.status_code}"
     soup = BeautifulSoup(response.text, 'html.parser')
+
+    # scrape core courses for the specialization
     core_courses_heading = soup.find('h3', string=lambda x: 'Core Courses' in x)
     if core_courses_heading:
         next_sibling = core_courses_heading.find_next_sibling()
@@ -100,12 +102,34 @@ def get_specialization_info(url: str) -> tuple[str, str]:
             if next_sibling.name == 'ul':
                 list_items = next_sibling.find_all('li')
                 for item in list_items:
-                    core_courses_text += item.get_text() + '\n'
+                    core_courses_text += item.get_text().strip() + '\n'
             elif next_sibling.name == 'p':
-                core_courses_text += next_sibling.get_text() + '\n'
+                core_courses_text += next_sibling.get_text().strip() + '\n'
             else:
-                core_courses_text += next_sibling.string + '\n'
+                core_courses_text += next_sibling.string.strip() + '\n'
             next_sibling = next_sibling.find_next_sibling()
+        print(f"`{core_courses_text}`")
+
+    # scrape elective courses for the specialization
+    electives_heading = soup.find('h3', string=lambda x: 'Electives' in x)
+    if electives_heading:
+        next_sibling = electives_heading.find_next_sibling()
+        while next_sibling and next_sibling.name != 'h3':
+            if next_sibling.name == 'p':
+                elective_courses_text += next_sibling.get_text().strip() + '\n'
+            elif next_sibling.name == 'ul':
+                list_items = next_sibling.find_all('li')
+                for item in list_items:
+                    if item.find('a'):
+                        course_link = item.find('a')['href']
+                        course_name = item.find('strong').get_text(strip=True)
+                        elective_courses_text += f"{course_name} [{course_link}]".strip() + '\n'
+                    else:
+                        elective_courses_text += item.get_text(strip=True).strip() + '\n'
+            else:
+                elective_courses_text += next_sibling.string + '\n'
+            next_sibling = next_sibling.find_next_sibling()
+
     return core_courses_text.strip(), elective_courses_text.strip()
 
 def run_async_tasks(tasks: list[asyncio.Task]) -> list[object]:
