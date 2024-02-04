@@ -73,3 +73,6 @@ clean:
 
 scape_omscs_courses:
 	python cli.py scrape-omscs-courses
+
+scape_omscs_specializations:
+	python cli.py scrape-omscs-specializations

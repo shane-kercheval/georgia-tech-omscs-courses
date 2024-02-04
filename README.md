@@ -8,3 +8,6 @@ This project scrapes all of the course and specialization information from the O
 - create .env file in project directory with `OPENAI_API_TOKEN=<your OpenAI API Key>`
 - Replace content in `resume.txt` with your information.
 
+
+
+Note that I did not include the `Computational Perception and Robotics` specialization. Uncomment relevant line in cli.py to include.
